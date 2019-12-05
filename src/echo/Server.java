@@ -23,23 +23,40 @@ public class Server {
 	}
 
 
-	public void listen() {
+	public void listen() throws InstantiationException, IllegalAccessException {
 		while(true) {
 			// accept a connection
+			try {
+				Socket s = mySocket.accept();
+				Thread t = new Thread(makeHandler(s));
+				t.start();
+				System.out.println("Server listening at port " + myPort);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			// make handler
 			// start handler
 		} // while
 	}
 
-	public RequestHandler makeHandler(Socket s) {
+	public RequestHandler makeHandler(Socket s) throws InstantiationException, IllegalAccessException {
+		RequestHandler handler = new RequestHandler(s);
+		try {
+			handler = (RequestHandler) handlerType.newInstance();
+			handler.setSocket(s);
+		}
+		catch (InstantiationException | IllegalAccessException e){
+			e.printStackTrace();
+		}
+		return handler;
 		// handler = a new instance of handlerType
 		// set handler's socket to s
-		// RequestHandler handler = null;
+		// return handler
 	}
 
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
 		int port = 5555;
 		String service = "echo.RequestHandler";
 		if (1 <= args.length) {

@@ -9,11 +9,19 @@ public class RequestHandler extends Correspondent implements Runnable {
 	protected String response(String msg) {
 		return "echo: " + msg;
 	}
+	
 	public void run() {
 		while(true) {
 			// receive request
-			// send response
+			String s = this.receive();
+			// send response	
+			this.send(response(s));
 			// sleep
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		// close
 	}
