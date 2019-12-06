@@ -27,8 +27,7 @@ public class Server {
 		while(true) {
 			// accept a connection
 			try {
-				Socket s = mySocket.accept();
-				Thread t = new Thread(makeHandler(s));
+				Thread t = new Thread(makeHandler(mySocket.accept()));
 				t.start();
 				System.out.println("Server listening at port " + myPort);
 			} catch (IOException e) {

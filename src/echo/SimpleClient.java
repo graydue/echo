@@ -29,15 +29,15 @@ public class SimpleClient extends Correspondent {
 				if (msg == null) continue;
 				if (msg.equals("quit")) break;
 				if (Server.DEBUG) stdout.println("sending: " + msg);
-				send(msg);
-				msg = receive();
-				stdout.println("received: " + msg);
+				writeObject(new Message<String>(msg));
+				Message<String> string = (Message<String>)readObject();
+				stdout.println("received: " + string.toString());
 			} catch(IOException e) {
 				stderr.println(e.getMessage());
 				break;
 			}
 		}
-		send("quit");
+		writeObject(new Message<String>("quit"));
 		stdout.println("bye");
 	}
 

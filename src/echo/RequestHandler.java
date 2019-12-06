@@ -13,16 +13,23 @@ public class RequestHandler extends Correspondent implements Runnable {
 	public void run() {
 		while(true) {
 			// receive request
-			String s = this.receive();
+			Message<String> s = (Message<String>)(this.readObject());
+			String string = s.toString();
+			System.out.println("received: " + string);
 			// send response	
-			this.send(response(s));
-			// sleep
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if(string.equals("quit")) {
+				System.out.println("Shutting down RequestHandler.");
+				break;
+			}
+			if(string.equals("server quit")) {
+				System.out.println("Server quitting.");
+				this.close();
+			}
+			else {
+				String response = response(string);
+				System.out.println("sending: " + response);
+				writeObject(new Message<String>(response));
 			}
 		}
-		// close
 	}
 }

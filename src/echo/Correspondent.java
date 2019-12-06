@@ -7,6 +7,8 @@ public class Correspondent {
 	protected Socket sock;
 	protected BufferedReader sockIn;
 	protected PrintWriter sockOut;
+	protected ObjectOutputStream out;
+	protected ObjectInputStream in;
 
 	public Correspondent() { } // init fields later
 	public Correspondent(Socket s) {
@@ -66,5 +68,26 @@ public class Correspondent {
 			System.exit(1);
 		}
 		return msg;
+	}
+	
+	public void writeObject(Object msg) {
+		try {
+			out = new ObjectOutputStream(sock.getOutputStream());
+			out.writeObject(msg);
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Object readObject() {
+		try {
+			in = new ObjectInputStream(sock.getInputStream());
+			return in.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 } // Correspondent
