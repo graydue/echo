@@ -11,41 +11,40 @@ public class MathHandler extends RequestHandler {
 
 	protected String response(String msg) {
 		String[] function = msg.split(" ");
-		int answer = 0;
 		String operand = function[0];
+		int answer = 0;
 		try {
 			if(operand.equals("add")) {
-				answer = Integer.valueOf(function[1]) + Integer.valueOf(function[2]);
+				for(int i = 1; i < function.length; i++) {
+					answer += Integer.valueOf(function[i]);
+				}
+				return String.valueOf(answer);
 			}
 			else if(operand.equals("mul")) {
-				answer = Integer.valueOf(function[1]) * Integer.valueOf(function[2]);
+				answer = Integer.valueOf(function[1]);
+				for(int i = 2; i < function.length; i++) {
+					answer *= Integer.valueOf(function[i]);
+				}
+				return String.valueOf(answer);
 			}
 			else if(operand.equals("sub")) {
-				answer = Integer.valueOf(function[1]) - Integer.valueOf(function[2]);
+				answer = Integer.valueOf(function[1]);
+				for(int i = 2; i < function.length; i++) {
+					answer -= Integer.valueOf(function[i]);
+				}
+				return String.valueOf(answer);
 			}
 			else if(operand.equals("div")) {
-				answer = Integer.valueOf(function[1]) / Integer.valueOf(function[2]);
+				answer = Integer.valueOf(function[1]);
+				for(int i = 2; i < function.length; i++) {
+					answer /= Integer.valueOf(function[i]);
+				}
+				return String.valueOf(answer);
 			}
-			return String.valueOf(answer);
+			return msg;
 		}
 		catch(NumberFormatException e){
-			return "Please use numerical values only.";
+			return "Please use numerical values.";
 		}
-	}
-
-	public void run() {
-		while(true) {
-			// receive request
-			String s = this.receive();
-			// send response
-			this.send(this.response(s));
-			// sleep
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		// close
 	}
 }

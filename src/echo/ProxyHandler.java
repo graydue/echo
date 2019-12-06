@@ -15,8 +15,8 @@ public class ProxyHandler extends RequestHandler {
 	}
 
 	protected String response(String msg) {
-		writeObject(new Message<String>(msg));
-		Message<String> m = (Message<String>)readObject();
+		peer.writeObject(new Message<String>(msg));
+		Message<String> m = (Message<String>)peer.readObject();
 		return m.toString();
 	}
 }

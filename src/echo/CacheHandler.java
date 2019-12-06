@@ -14,14 +14,14 @@ public class CacheHandler extends ProxyHandler{
 	
 	protected String response(String msg) {
 		String string = Cache.search(msg);
-		if (string!= null) {
-			System.out.println("");
+		if (string != null) {
+			System.out.println("Found in the cache.");
 			return string;
 		}
 		else {
 			peer.writeObject(new Message<String>(msg));
 			String message = ((Message<String>) peer.readObject()).toString();
-			Cache.update(msg,  message);
+			Cache.update(msg, message);
 			return message;
 		}
 	}

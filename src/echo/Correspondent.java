@@ -13,26 +13,26 @@ public class Correspondent {
 	public Correspondent() { } // init fields later
 	public Correspondent(Socket s) {
 		sock = s;
-		initStreams();
+//		initStreams();
 	}
 	
 	public void setSocket(Socket socket) {
 		this.sock = socket;
-		initStreams();
+//		initStreams();
 	}
 
-	protected void initStreams() {
-		try {
-			sockIn = 
-					new BufferedReader(
-					new InputStreamReader(
-							sock.getInputStream()));
-			sockOut = new PrintWriter(
-					sock.getOutputStream(), true);
-		} catch(IOException e) {
-			System.err.println(e.getMessage());
-		}
-	}
+//	protected void initStreams() {
+//		try {
+//			sockIn = 
+//					new BufferedReader(
+//					new InputStreamReader(
+//							sock.getInputStream()));
+//			sockOut = new PrintWriter(
+//					sock.getOutputStream(), true);
+//		} catch(IOException e) {
+//			System.err.println(e.getMessage());
+//		}
+//	}
 
 	protected void close() {
 		try {
@@ -45,7 +45,7 @@ public class Correspondent {
 	public void requestConnection(String host, int port) {
 		try {
 			sock = new Socket(host, port);
-			initStreams();
+//			initStreams();
 		} catch(UnknownHostException uhe) {
 			System.err.println("unknown host " + uhe);
 			System.exit(1);

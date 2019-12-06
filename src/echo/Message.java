@@ -8,6 +8,6 @@ public class Message<T extends Serializable> implements Serializable {
 	     this.content = content;
 	  }
 	  public String toString() {
-	     return "[" + content + "]";
+	     return content.toString();
 	  }
 	}

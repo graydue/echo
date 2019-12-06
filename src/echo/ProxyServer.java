@@ -14,18 +14,12 @@ public class ProxyServer extends Server {
 	}
 
 	public RequestHandler makeHandler(Socket s) {
-		RequestHandler handler = null;
-		try {
-			handler = super.makeHandler(s);
-			((ProxyHandler)handler).initPeer(peerHost, peerPort);
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		RequestHandler handler = super.makeHandler(s);
+		((ProxyHandler)handler).initPeer(peerHost, peerPort);
 		return handler;
 	}
 
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+	public static void main(String[] args) {
 		int port = 5555;
 		int peerPort = 6666;
 		String peerHost = "localhost";

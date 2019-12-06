@@ -13,7 +13,7 @@ public class CacheServer extends ProxyServer {
 		return handler;
 	}
 	
-	public static void main(String[] args) throws InstantiationException, IllegalAccessException {
+	public static void main(String[] args) {
 		int port = 5555;
 		int peerPort = 6666;
 		String peerHost = "localHost";
